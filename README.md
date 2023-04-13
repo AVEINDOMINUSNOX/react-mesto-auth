@@ -1,7 +1,7 @@
 # <center>MESTO-REACT
 
  ## <center>О проекте.
-ы
+
  - Mesto - взгляд на то, как может выглядеть сервис для публикаций фотографий с интерактивным интерфейсом.
  - [Ссылка на GitPages](https://aveindominusnox.github.io/mesto-react/)
 ___
