@@ -1,0 +1,11 @@
+.item__image {
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+  grid-area: image;
+  background-color: #000000;
+}
+
+.item__image:hover{
+  cursor: pointer;
+}

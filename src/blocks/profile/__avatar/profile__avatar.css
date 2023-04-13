@@ -1,0 +1,14 @@
+.profile__avatar{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 100%;
+  display: block;
+
+  /*Чтобы Альтернативный текст был по центру*/
+  /* line-height: 120px;
+  text-align: center; */
+}
