@@ -1,4 +1,5 @@
 function PopupWithForm(props) {
+
     return (
         <div className={`popup ${props.isOpen ? 'popup_open' : ''}`}
             id={`popup-${props.name}`}>
@@ -16,6 +17,7 @@ function PopupWithForm(props) {
                     className="popup__input-container"
                     method="POST"
                     noValidate=""
+                    onSubmit={props.onSubmit}
                 >
                     {props.children}
                     <button
@@ -31,5 +33,9 @@ function PopupWithForm(props) {
         </div>
 
     )
+
+
+
+    
 }
 export default PopupWithForm;

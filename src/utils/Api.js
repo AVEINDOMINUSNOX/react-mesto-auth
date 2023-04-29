@@ -1,4 +1,4 @@
-  class Api {
+class Api {
   constructor(config) {
     this.url = config.url;
     this.headers = config.headers;
@@ -93,6 +93,14 @@
       method: 'DELETE'
     })
       .then(this._handleResponse)
+  }
+
+
+  selectLikeStatus(cardId, isLiked) {
+    if (!isLiked)
+      return this.deleteLikeCard(cardId);
+    else
+      return this.setLikeCard(cardId);
   }
 }
 
