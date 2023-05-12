@@ -74,11 +74,7 @@
 @import url(../src/blocks/auth/__error/auth__error.css);
 @import url(../src/blocks/auth/__span/auth__span.css);
 
-.effect:hover {
-    transition: opacity 0.3s ease-in-out;
-    opacity: 0.6;
-    cursor: pointer;
-  }
+@import url(../src/blocks/effect/effect.css);
   
 
 
