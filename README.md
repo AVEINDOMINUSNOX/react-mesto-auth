@@ -6,10 +6,11 @@
  - [Ссылка на GitPages](https://aveindominusnox.github.io/mesto-react/)
 ___
  ## <center>О используемых технологиях.
- - Для рефакторинга кода проекта [MESTO](https://aveindominusnox.github.io/mesto/) была использована библиотека    React 
+ - Для рефакторинга кода проекта [MESTO](https://aveindominusnox.github.io/react-mesto-auth/) была использована библиотека    React 
  - Применение методологии структурирования файлов БЭМ Nested
  - В проекте использован язык разметки HTML5 и язык таблиц стилей CSS3
  - Для придания интереактивности используется язык программирования Java Script
+
 
 ___
 ## <center>О используемых техниках.
