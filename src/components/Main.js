@@ -1,9 +1,17 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import {useContext} from 'react';
 import Card from './Card';
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
+import InfoTooltip from "./InfoTooltip";
 
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+ 
+  function handleClosePopup(){
+    navigate("/mesto", { replace: true, state: { isOpenInfoPopup : false } });  
+  }
 
     return (
         <main className="content">
@@ -48,6 +56,12 @@ function Main(props) {
             />
             ))}
             </section> 
+            <InfoTooltip
+        isSuccessfull={true}
+        isOpen={location.state?.isOpenInfoPopup || false}
+        onClosePopup={handleClosePopup}
+        successTitle={location.state?.title || ""}
+      ></InfoTooltip>
         </main>
     )
 }

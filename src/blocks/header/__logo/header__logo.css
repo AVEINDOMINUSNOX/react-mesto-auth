@@ -1,22 +1,11 @@
 .header__logo {
- /* background-image: url(../../../images/logo.svg);*/
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  width: 142px;
-  height: 33px;
-  margin: 0;
-}
-
-@media screen and (max-width: 882px) {
-  .header__logo {
-    margin-left: 27px;
-  }
+    width: 142px;
+    height: 33px;
 }
 
 @media screen and (max-width: 706px) {
-  .header__logo {
-    width: 103.74px;
-    height: 24.4px;
-  }
+    .header__logo {
+        width: 104px;
+        height: 25px;
+    }
 }

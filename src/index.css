@@ -6,6 +6,14 @@
 /*Блок header*/
 @import url(../src/blocks/header/header.css);
 @import url(../src/blocks/header/__logo/header__logo.css);
+@import url(../src/blocks/header/__auth/header__auth.css);
+@import url(../src/blocks/header/__auth-container/header__auth-container.css);
+@import url(../src/blocks/header/__email/header__email.css);
+@import url(../src/blocks/header/__menu-btn/header__menu-btn.css);
+@import url(../src/blocks/header/__menu-btn/_clicked/header__menu-btn_clicked.css);
+@import url(../src/blocks/header/__auth/_mobile-menu/header__auth_mobile-menu.css);
+@import url(../src/blocks/header/__mobile-menu/header__mobile-menu.css);
+
 
 /*Блок profile*/
 @import url(../src/blocks/profile/profile.css);
@@ -49,10 +57,31 @@
 @import url(../src/blocks/popup/__input-field/popup__input-field.css);
 @import url(../src/blocks/popup/__input-field/_type/popup__input-field_type_error.css);
 @import url(../src/blocks/popup/__input-field-error/popup__input-field-error.css);
+@import url(../src/blocks/popup/__info-icon/popup__info-icon.css);
+@import url(../src/blocks/popup/__info-title/popup__info-title.css);
 
 /*Блок footer*/
 @import url(../src/blocks/footer/footer.css);
 @import url(../src/blocks/footer/__copyright/footer__copyright.css);
+
+/*Блок auth*/
+@import url(../src/blocks/auth/auth.css);
+@import url(../src/blocks/auth/__title/auth__title.css);
+@import url(../src/blocks/auth/__button/auth__button.css);
+@import url(../src/blocks/auth/__form/auth__form.css);
+@import url(../src/blocks/auth/__form-input-group/auth__form-input-group.css);
+@import url(../src/blocks/auth/__input/auth__input.css);
+@import url(../src/blocks/auth/__error/auth__error.css);
+@import url(../src/blocks/auth/__span/auth__span.css);
+
+.effect:hover {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  
+
+
 
 
 

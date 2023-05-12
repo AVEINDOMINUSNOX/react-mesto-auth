@@ -1,0 +1,12 @@
+.header__mobile-menu{
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+
+@media screen and (min-width: 621px){
+    .header__mobile-menu{
+        display: none;
+        margin: 0;
+    }
+}

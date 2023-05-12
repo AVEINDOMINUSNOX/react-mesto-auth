@@ -1,0 +1,6 @@
+@media screen and (max-width:400px){
+    .header__auth_mobile-menu {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}  
