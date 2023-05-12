@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/mesto-react/static/css/main.3526df74.css",
-    "main.js": "/mesto-react/static/js/main.2478675b.js",
+    "main.css": "/mesto-react/static/css/main.fc5538d4.css",
+    "main.js": "/mesto-react/static/js/main.acf44d18.js",
     "static/js/787.5530211c.chunk.js": "/mesto-react/static/js/787.5530211c.chunk.js",
     "static/media/Inter-Medium.woff": "/mesto-react/static/media/Inter-Medium.9534203f443096c3ec9b.woff",
     "static/media/Inter-Black.woff": "/mesto-react/static/media/Inter-Black.6f3f8d238cb5ec6a7884.woff",
@@ -14,17 +14,19 @@
     "static/media/like.svg": "/mesto-react/static/media/like.87ed371465c7a6a1cd01.svg",
     "index.html": "/mesto-react/index.html",
     "static/media/del.svg": "/mesto-react/static/media/del.cbc09a894bdd4c956365.svg",
+    "static/media/fail.svg": "/mesto-react/static/media/fail.7c6a020bec681932a2af92e04114a848.svg",
+    "static/media/sucess.svg": "/mesto-react/static/media/sucess.1b6082f862eac35e2514460237d96ecc.svg",
     "static/media/likeactive.svg": "/mesto-react/static/media/likeactive.e787eeb70bb65b7b453a.svg",
     "static/media/editbutton.svg": "/mesto-react/static/media/editbutton.8667ac4a523e8fc42e59.svg",
     "static/media/avatarbutton.svg": "/mesto-react/static/media/avatarbutton.a086f758840ae814ecde.svg",
     "static/media/addbutton.svg": "/mesto-react/static/media/addbutton.d86bb2edc2f6eadb96b7.svg",
     "static/media/CloseIcon.svg": "/mesto-react/static/media/CloseIcon.b793e07c3f4c19e26c11.svg",
-    "main.3526df74.css.map": "/mesto-react/static/css/main.3526df74.css.map",
-    "main.2478675b.js.map": "/mesto-react/static/js/main.2478675b.js.map",
+    "main.fc5538d4.css.map": "/mesto-react/static/css/main.fc5538d4.css.map",
+    "main.acf44d18.js.map": "/mesto-react/static/js/main.acf44d18.js.map",
     "787.5530211c.chunk.js.map": "/mesto-react/static/js/787.5530211c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3526df74.css",
-    "static/js/main.2478675b.js"
+    "static/css/main.fc5538d4.css",
+    "static/js/main.acf44d18.js"
   ]
 }
