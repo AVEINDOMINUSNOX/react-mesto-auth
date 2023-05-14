@@ -20,8 +20,6 @@ import Login from "./Login";
 import Register from "./Register";
 import ProtectedRouteElement from "./ProtectedRoute";
 
-
-
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isSaveAvatarPopupOpen, setIsSaveAvatarPopupOpen] = useState(false);
@@ -34,40 +32,44 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({ email: "" });
 
-
+  useEffect(() => {
+    if (!loggedIn) {
+      return undefined
+    } else {
+      handleTokenCheck();
+      api
+        .getInitialCards()
+        .then(data => {
+          setCards(
+            data.map((card) => ({
+              _id: card._id,
+              name: card.name,
+              link: card.link,
+              likes: card.likes,
+              owner: card.owner,
+            }))
+          );
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
-    handleTokenCheck();
-    api
-      .getInitialCards()
-      .then(data => {
-        setCards(
-          data.map((card) => ({
-            _id: card._id,
-            name: card.name,
-            link: card.link,
-            likes: card.likes,
-            owner: card.owner,
-          }))
-        );
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }, []);
+    if (!loggedIn) {
+      return undefined
+    } else {
+      api.getUserInfo()
+        .then(data => {
+          setCurrentUser(data)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
 
-
-  useEffect(() => {
-    api.getUserInfo()
-      .then(data => {
-        setCurrentUser(data)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  
   async function handleTokenCheck() {
     const token = localStorage.getItem("token");
 
@@ -171,7 +173,6 @@ function App() {
     setSelectedCard(card);
   };
 
-
   function handleLogin(email) {
     setLoggedIn(true);
     setUserData({ email: email });
@@ -200,7 +201,6 @@ function App() {
                 }
               ></Route>
 
-
               <Route
                 exact
                 path="/sign-up"
@@ -212,7 +212,6 @@ function App() {
                 path="/sign-in"
                 element={<Login onLogin={handleLogin} />}
               ></Route>
-
 
               <Route
                 path="/mesto"
