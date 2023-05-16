@@ -10,15 +10,15 @@ import Main from "./Main";
 import Footer from "./Footer";
 
 import PopupWithForm from "./PopupWithForm";
+import InfoTooltip from './InfoTooltip';
 
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopoup';
 
-import Login from "./Login";
-import Register from "./Register";
 import ProtectedRouteElement from "./ProtectedRoute";
+import AuthenticationForm from './AuthenticationForm';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -31,6 +31,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({ email: "" });
+  const [token, setToken] = useState("");
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isSuccess, setSucces] = useState(false);
 
   useEffect(() => {
     if (!loggedIn) {
@@ -159,6 +162,10 @@ function App() {
     setIsAddCardPopupOpen(true);
   };
 
+  function handleClosePopup() {
+    setIsInfoTooltipOpen(false);
+  }
+
   const closeAllPopups = () => {
     setIsSaveAvatarPopupOpen(false);
     setIsAddCardPopupOpen(false);
@@ -173,9 +180,43 @@ function App() {
     setSelectedCard(card);
   };
 
-  function handleLogin(email) {
-    setLoggedIn(true);
-    setUserData({ email: email });
+
+  async function handleRegister(email, password) {
+    auth.signup(email, password)
+      .then(({ token }) => {
+        localStorage.setItem('token', token);
+        setToken(token);
+        setSucces(true);
+        navigate('/sign-in', { replace: true });
+      })
+      .catch((err) => {
+        console.error(err);
+        setSucces(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setIsInfoTooltipOpen(true);
+      });
+  }
+
+
+  async function handleLogin(email, password) {
+    auth.signin(email, password)
+      .then(({ token }) => {
+        localStorage.setItem("token", token);
+        setToken(token);
+        setUserData({ email: email });
+        setLoggedIn(true);
+        navigate('/mesto');
+      })
+      .catch((err) => {
+        console.error(err);
+        setSucces(false);
+        setIsInfoTooltipOpen(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   const handleLogOut = () => {
@@ -190,47 +231,46 @@ function App() {
       <div className="page">
         <div className="page__container">
           <Header userData={userData} onLogOut={handleLogOut} />
-          <main className="content">
-            <Routes>
-              <Route path="*"
-                element={loggedIn ? (
-                  <Navigate to="/mesto" replace />
-                ) : (
-                  <Navigate to="/sign-in" replace />
-                )
-                }
-              ></Route>
 
-              <Route
-                exact
-                path="/sign-up"
-                element={<Register onRegister={handleLogin} />}
-              ></Route>
+          <Routes>
+            <Route path="*"
+              element={loggedIn ? (
+                <Navigate to="/mesto" replace />
+              ) : (
+                <Navigate to="/sign-in" replace />
+              )
+              }
+            ></Route>
 
-              <Route
-                exact
-                path="/sign-in"
-                element={<Login onLogin={handleLogin} />}
-              ></Route>
+            <Route
+              /*  exact */
+              path="/sign-up"
+              element={<AuthenticationForm onRegister={handleRegister} />}
+            ></Route>
 
-              <Route
-                path="/mesto"
-                element={
-                  <ProtectedRouteElement
-                    element={Main}
-                    cards={cards}
-                    onEditProfile={handleEditProfileClick}
-                    onEditAvatar={handleSaveAvatarClick}
-                    onCardClick={handleCardClick}
-                    onAddPlace={handleAddCardClick}
-                    onCardDelete={handleCardDelete}
-                    onCardLike={handleCardLike}
-                    loggedIn={loggedIn}
-                  />
-                }
-              />
-            </Routes>
-          </main>
+            <Route
+              exact
+              path="/sign-in"
+              element={<AuthenticationForm onLogin={handleLogin} />}
+            ></Route>
+
+            <Route
+              path="/mesto"
+              element={
+                <ProtectedRouteElement
+                  element={Main}
+                  cards={cards}
+                  onEditProfile={handleEditProfileClick}
+                  onEditAvatar={handleSaveAvatarClick}
+                  onCardClick={handleCardClick}
+                  onAddPlace={handleAddCardClick}
+                  onCardDelete={handleCardDelete}
+                  onCardLike={handleCardLike}
+                  loggedIn={loggedIn}
+                />
+              }
+            />
+          </Routes>
           <Footer />
 
           {/* Попап редактирования профиля*/}
@@ -255,7 +295,6 @@ function App() {
             onClose={closeAllPopups}
           ></AddPlacePopup>
 
-
           {/* Попап подтверждения удаления фотокарточки */}
           <PopupWithForm
             name="confirmation-form"
@@ -265,14 +304,21 @@ function App() {
 
           {/* Попап развернутой картинки*/}
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+
+          {/* Попап успеха/ошибки регистрации*/}
+          <InfoTooltip
+            isSuccessfull={false}
+            isOpen={isInfoTooltipOpen}
+            onClose={handleClosePopup}
+            isSuccess={isSuccess}
+          ></InfoTooltip>
         </div>
       </div>
     </CurrentUserContext.Provider>
   );
+  
 }
-
 export default App;
-
 
 
 

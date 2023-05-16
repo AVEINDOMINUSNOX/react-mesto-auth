@@ -61,6 +61,7 @@ export class Auth{
     const response = await fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
+        'Accept': 'application/json',
         "Content-Type": "application/json",
         "Authorization" : `Bearer ${token}`
       }
@@ -68,9 +69,6 @@ export class Auth{
     
     return this._handleResponse(response, "Данные токена не были успешно обработаны сервером", ' Токен не передан или передан не в том формате', 'Переданный токен некорректен');
   }
-
 }
-
 const auth = new Auth();
-
 export default auth;

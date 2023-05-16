@@ -4,7 +4,6 @@ class Api {
     this.headers = config.headers;
   }
 
-
   _handleResponse = (res) => {
     if (res.ok) {
       return res.json();
@@ -12,9 +11,6 @@ class Api {
 
     return Promise.reject(`Ошибка: ${res.status}`);
   }
-
-
-
 
   //Пользователь
   //Получаем инф-ию о пользователе
@@ -49,8 +45,6 @@ class Api {
     })
       .then(this._handleResponse)
   }
-
-
 
   //Фотокарточки
   // Получаем список фотокарточек
@@ -95,7 +89,6 @@ class Api {
       .then(this._handleResponse)
   }
 
-
   selectLikeStatus(cardId, isLiked) {
     if (!isLiked)
       return this.deleteLikeCard(cardId);
@@ -104,8 +97,6 @@ class Api {
   }
 }
 
-
-
 const api = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-60",
   headers: {
@@ -113,7 +104,5 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
-
 
 export default api;

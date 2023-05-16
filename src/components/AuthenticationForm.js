@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import auth from "./../utils/Auth";
-import InfoTooltip from "./InfoTooltip";
 
-function AuthenticationForm(props) {
+function AuthenticationForm({ onLogin, onRegister }) {
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [errorInfoTooltipTitle, setErrorInfoTooltipTitle] = useState("");
-  const [isEmailValid, setEmailValid] = useState(false); 
-
-  
+  const [isEmailValid, setEmailValid] = useState(false);
 
   const [formValue, setFormValue] = useState({
     email: "",
@@ -38,48 +32,32 @@ function AuthenticationForm(props) {
       setEmailValid(/^\S+@\S+\.\S+$/.test(value));
     }
   };
-  function handleClosePopup() {
-    setIsInfoTooltipOpen(false);
-  }
 
   function handleClickLogIn() {
     navigate("/sign-in", { replace: true });
   }
 
+
   async function handleSubmit(e) {
     e.preventDefault();
-    setErrorInfoTooltipTitle('');
-    const title = props.isLogin ? 'Вы успешно вошли в систему!' : 'Вы успешно зарегистрировались!';
-    try {
-      const data = props.isLogin
-        ? await auth.signin( formValue.email, formValue.password)
-        : await auth.signup( formValue.email, formValue.password);
-  
-      if (props.isLogin) {
-        localStorage.setItem('token', data.token);
-      }
+    const { email, password } = formValue;
 
-      props.handleLogin(formValue.email);
-
-      setFormValue({email: '', password: ''});
-
-      navigate("/mesto", {
-        replace: true,
-        state: { isOpenInfoPopup: true , title: title},
-      });
-    } catch (error) {
-      setErrorInfoTooltipTitle(error.message);
-      setIsInfoTooltipOpen(true);
-      console.log('Error:', error);
-    }
+    onLogin ?
+      onLogin(email, password)
+        .then(() => {
+          e.target.reset()
+        })
+      :
+      onRegister(email, password)
+        .then(() => {
+          e.target.reset()
+        })
   }
 
   return (
     <>
       <div className="auth">
-        <h3 className="auth__title">
-          {props.isLogin ? "Вход" : "Регистрация"}
-        </h3>
+        <h3 className="auth__title"> {onLogin ? "Вход" : "Регистрация"}</h3>
         <form className="auth__form" onSubmit={handleSubmit}>
           <div className="auth__form-input-group">
             <input
@@ -110,23 +88,16 @@ function AuthenticationForm(props) {
             className={`auth__button ${!buttonDisabled && "effect"}`}
             type="submit"
             disabled={buttonDisabled}
-          >
-            {props.isLogin ? "Войти" : "Зарегистрироваться"}
+          > {onLogin ? "Войти" : "Зарегистрироваться"}
           </button>
         </form>
         <span className="auth__error"></span>
-        {!props.isLogin && (
-          <button className="auth__span effect" onClick={handleClickLogIn}>
+        {!onLogin && (
+          <button className="auth__span link" onClick={handleClickLogIn}>
             Уже зарегистрированы? Войти
           </button>
         )}
       </div>
-      <InfoTooltip
-        isSuccessfull={false}
-        isOpen={isInfoTooltipOpen}
-        onClosePopup={handleClosePopup}
-        failedTitle={errorInfoTooltipTitle}
-      ></InfoTooltip>
     </>
   );
 }

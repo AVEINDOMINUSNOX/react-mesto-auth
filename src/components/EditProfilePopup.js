@@ -7,7 +7,6 @@ function EditProfilePopup(props) {
     const [name, setName] = useState("");
     const [about, setAbout] = useState("");
 
-
     useEffect(() => {
         setName(currentUser.name);
         setAbout(currentUser.about);
@@ -77,6 +76,4 @@ function EditProfilePopup(props) {
         </PopupWithForm>
     );
 }
-
-
     export default EditProfilePopup;
