@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 
-import api from '../utils/Api';
+import api from "../utils/Api";
 import auth from "./.././utils/Auth";
 
 import Header from "./Header";
@@ -10,15 +10,15 @@ import Main from "./Main";
 import Footer from "./Footer";
 
 import PopupWithForm from "./PopupWithForm";
-import InfoTooltip from './InfoTooltip';
+import InfoTooltip from "./InfoTooltip";
 
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup';
-import ImagePopup from './ImagePopoup';
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
+import ImagePopup from "./ImagePopoup";
 
 import ProtectedRouteElement from "./ProtectedRoute";
-import AuthenticationForm from './AuthenticationForm';
+import AuthenticationForm from "./AuthenticationForm";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -37,12 +37,12 @@ function App() {
 
   useEffect(() => {
     if (!loggedIn) {
-      return undefined
+      return undefined;
     } else {
       handleTokenCheck();
       api
         .getInitialCards()
-        .then(data => {
+        .then((data) => {
           setCards(
             data.map((card) => ({
               _id: card._id,
@@ -61,11 +61,12 @@ function App() {
 
   useEffect(() => {
     if (!loggedIn) {
-      return undefined
+      return undefined;
     } else {
-      api.getUserInfo()
-        .then(data => {
-          setCurrentUser(data)
+      api
+        .getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
         })
         .catch((err) => {
           console.log(err);
@@ -83,15 +84,15 @@ function App() {
         setLoggedIn(true);
         setUserData({ email: data.data.email });
         navigate("/mesto", { replace: true });
-      }
-      catch (error) {
-        console.log('Error:', error);
+      } catch (error) {
+        console.log("Error:", error);
       }
     }
   }
 
   const handleAddPlaceSubmit = ({ name, link }) => {
-    api.postCard({ name, link })
+    api
+      .postCard({ name, link })
       .then((card) => {
         setCards([card, ...cards]);
         closeAllPopups();
@@ -102,7 +103,8 @@ function App() {
   };
 
   const handleCardDelete = (card) => {
-    api.deleteCard(card._id)
+    api
+      .deleteCard(card._id)
       .then(() => {
         setCards((items) =>
           items.filter((c) => (c._id !== card._id ? currentUser : null))
@@ -115,7 +117,8 @@ function App() {
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((data) => data._id === currentUser._id);
-    api.selectLikeStatus(card._id, !isLiked)
+    api
+      .selectLikeStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((items) =>
           items.map((c) => (c._id === card._id ? newCard : c))
@@ -139,7 +142,8 @@ function App() {
   };
 
   const handleSaveAvatar = ({ avatar }) => {
-    api.saveAvatar(avatar)
+    api
+      .saveAvatar(avatar)
       .then(() => {
         currentUser.avatar = avatar;
         setCurrentUser(currentUser);
@@ -180,14 +184,14 @@ function App() {
     setSelectedCard(card);
   };
 
-
   async function handleRegister(email, password) {
-    auth.signup(email, password)
+    auth
+      .signup(email, password)
       .then(({ token }) => {
-        localStorage.setItem('token', token);
+        localStorage.setItem("token", token);
         setToken(token);
         setSucces(true);
-        navigate('/sign-in', { replace: true });
+        navigate("/sign-in", { replace: true });
       })
       .catch((err) => {
         console.error(err);
@@ -199,15 +203,15 @@ function App() {
       });
   }
 
-
   async function handleLogin(email, password) {
-    auth.signin(email, password)
+    auth
+      .signin(email, password)
       .then(({ token }) => {
         localStorage.setItem("token", token);
         setToken(token);
         setUserData({ email: email });
         setLoggedIn(true);
-        navigate('/mesto');
+        navigate("/mesto");
       })
       .catch((err) => {
         console.error(err);
@@ -227,33 +231,30 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-
       <div className="page">
         <div className="page__container">
           <Header userData={userData} onLogOut={handleLogOut} />
-
           <Routes>
-            <Route path="*"
-              element={loggedIn ? (
-                <Navigate to="/mesto" replace />
-              ) : (
-                <Navigate to="/sign-in" replace />
-              )
+            <Route
+              path="*"
+              element={
+                loggedIn ? (
+                  <Navigate to="/mesto" replace />
+                ) : (
+                  <Navigate to="/sign-in" replace />
+                )
               }
             ></Route>
-
             <Route
-              /*  exact */
+              exact
               path="/sign-up"
               element={<AuthenticationForm onRegister={handleRegister} />}
             ></Route>
-
             <Route
               exact
               path="/sign-in"
               element={<AuthenticationForm onLogin={handleLogin} />}
             ></Route>
-
             <Route
               path="/mesto"
               element={
@@ -272,7 +273,6 @@ function App() {
             />
           </Routes>
           <Footer />
-
           {/* Попап редактирования профиля*/}
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
@@ -316,9 +316,5 @@ function App() {
       </div>
     </CurrentUserContext.Provider>
   );
-  
 }
 export default App;
-
-
-

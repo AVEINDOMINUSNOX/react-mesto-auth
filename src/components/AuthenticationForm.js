@@ -37,21 +37,17 @@ function AuthenticationForm({ onLogin, onRegister }) {
     navigate("/sign-in", { replace: true });
   }
 
-
   async function handleSubmit(e) {
     e.preventDefault();
     const { email, password } = formValue;
 
-    onLogin ?
-      onLogin(email, password)
-        .then(() => {
-          e.target.reset()
+    onLogin
+      ? onLogin(email, password).then(() => {
+          e.target.reset();
         })
-      :
-      onRegister(email, password)
-        .then(() => {
-          e.target.reset()
-        })
+      : onRegister(email, password).then(() => {
+          e.target.reset();
+        });
   }
 
   return (
@@ -88,7 +84,9 @@ function AuthenticationForm({ onLogin, onRegister }) {
             className={`auth__button ${!buttonDisabled && "effect"}`}
             type="submit"
             disabled={buttonDisabled}
-          > {onLogin ? "Войти" : "Зарегистрироваться"}
+          >
+            {" "}
+            {onLogin ? "Войти" : "Зарегистрироваться"}
           </button>
         </form>
         <span className="auth__error"></span>
